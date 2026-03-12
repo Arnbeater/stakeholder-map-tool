@@ -840,7 +840,7 @@ input[type="range"] {
   }
 
   body {
-    overflow: visible;
+    overflow: visible !important;
   }
 
   .no-print,
@@ -853,63 +853,145 @@ input[type="range"] {
   .app-shell {
     display: block !important;
     max-width: none !important;
-    padding: 0 !important;
     min-height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .main-grid {
     display: block !important;
   }
 
-  .main-grid > .card:first-child {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
   .main-grid > .card:last-child {
     display: none !important;
   }
 
-  .card {
-    background: white !important;
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+  .print-card,
+  .main-grid > .card:first-child {
+    display: block !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  .card::after,
-  .map::before,
-  .map::after {
+  .card {
+    background: white !important;
+    border: 1px solid #d9d9d9 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 18px !important;
+  }
+
+  .card::after {
     display: none !important;
   }
 
-  .map {
-    height: 420px !important;
-    background: white !important;
-    box-shadow: none !important;
-    border: 1px solid #ccc !important;
-  }
-
-  .map-label,
-  .node-label,
-  .legend span {
-    background: white !important;
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-  }
-
-  .section-head {
-    margin-bottom: 16px !important;
+  .section-head-print {
+    display: block !important;
+    margin-bottom: 18px !important;
   }
 
   .section-head-actions {
-    justify-content: flex-start !important;
+    display: block !important;
+    margin-top: 12px !important;
+  }
+
+  .legend {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    margin-top: 10px !important;
+  }
+
+  .legend span,
+  .map-label,
+  .node-label {
+    background: white !important;
+    border: 1px solid #cfcfcf !important;
+    box-shadow: none !important;
+    color: #222 !important;
+  }
+
+  .project-print-description,
+  .axis-label,
+  .map-label {
+    color: #444 !important;
+  }
+
+  .map-wrapper {
+    position: relative !important;
+    padding-top: 10px !important;
+    overflow: visible !important;
+  }
+
+  .map {
+    position: relative !important;
+    height: 420px !important;
+    background: white !important;
+    border: 1px solid #cfcfcf !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  /* Behold ring-guides i print */
+  .map::before,
+  .map::after {
+    display: block !important;
+    border: 1px dashed #cfcfcf !important;
+  }
+
+  .map-node {
+    border: 2px solid white !important;
+    box-shadow: none !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .map-node.active {
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .node-label {
+    top: -30px !important;
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Flyt akse-labels ind i printfladen */
+  .x-axis {
+    bottom: 8px !important;
+    right: 12px !important;
+    top: auto !important;
+  }
+
+  .y-axis {
+    top: 10px !important;
+    left: 12px !important;
+  }
+
+  .top-left {
+    top: 12px !important;
+    left: 12px !important;
+  }
+
+  .top-right {
+    top: 12px !important;
+    right: 12px !important;
+  }
+
+  .bottom-left {
+    bottom: 12px !important;
+    left: 12px !important;
+  }
+
+  .bottom-right {
+    bottom: 12px !important;
+    right: 12px !important;
   }
 
   @page {
     size: A4 landscape;
-    margin: 12mm;
+    margin: 10mm;
   }
 }
 
