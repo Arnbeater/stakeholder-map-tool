@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import html2canvas from "html2canvas";
 
 const STORAGE_KEY = "stakeholder-map-tool-data";
 
@@ -149,6 +150,9 @@ export default function App() {
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [newProjectName, setNewProjectName] = useState("");
   const [newProjectDescription, setNewProjectDescription] = useState("");
+  const [isExportingPng, setIsExportingPng] = useState(false);
+
+  const exportCardRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -313,6 +317,36 @@ export default function App() {
     }));
 
     setSelectedStakeholderId(nextStakeholders[0]?.id ?? null);
+  }
+
+  async function exportAsPng() {
+    if (!exportCardRef.current || !selectedProject) return;
+
+    try {
+      setIsExportingPng(true);
+
+      const canvas = await html2canvas(exportCardRef.current, {
+        backgroundColor: "#ffffff",
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+
+      const link = document.createElement("a");
+      const safeName = selectedProject.name
+        .toLowerCase()
+        .replaceAll(" ", "-")
+        .replaceAll("/", "-");
+
+      link.download = `${safeName}-stakeholder-map.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (error) {
+      console.error(error);
+      window.alert("Kunne ikke gemme PNG.");
+    } finally {
+      setIsExportingPng(false);
+    }
   }
 
   if (!selectedProject) {
@@ -569,7 +603,7 @@ export default function App() {
         </aside>
 
         <main className="main-grid">
-          <section className="card print-card">
+          <section className="card print-card" ref={exportCardRef}>
             <div className="row section-head section-head-print">
               <div>
                 <h2>{selectedProject.name}</h2>
@@ -584,6 +618,14 @@ export default function App() {
                   onClick={() => window.print()}
                 >
                   Udskriv / gem som PDF
+                </button>
+
+                <button
+                  className="btn btn-primary no-print"
+                  onClick={exportAsPng}
+                  disabled={isExportingPng}
+                >
+                  {isExportingPng ? "Gemmer PNG..." : "Gem som PNG"}
                 </button>
 
                 <div className="legend">
