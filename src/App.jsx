@@ -353,9 +353,7 @@ export default function App() {
 
                   <div className="project-card-body">
                     <h2>{project.name}</h2>
-                    <p>
-                      {project.description || "Ingen beskrivelse endnu."}
-                    </p>
+                    <p>{project.description || "Ingen beskrivelse endnu."}</p>
                   </div>
 
                   <div className="project-stats">
@@ -458,7 +456,7 @@ export default function App() {
   return (
     <>
       <div className="app-shell">
-        <aside className="sidebar card">
+        <aside className="sidebar card no-print">
           <div className="row header-row">
             <h1>Stakeholder Map Tool</h1>
             <button className="btn btn-primary" onClick={goHome}>
@@ -571,34 +569,37 @@ export default function App() {
         </aside>
 
         <main className="main-grid">
-          <section className="card">
-            <div className="row section-head">
+          <section className="card print-card">
+            <div className="row section-head section-head-print">
               <div>
-                <h2>Stakeholder Map</h2>
-                <p
-                  style={{
-                    margin: "8px 0 0",
-                    color: "var(--muted)",
-                    fontSize: "0.92rem"
-                  }}
-                >
+                <h2>{selectedProject.name}</h2>
+                <p className="project-print-description">
                   {selectedProject.description || "Ingen projektbeskrivelse endnu."}
                 </p>
               </div>
 
-              <div className="legend">
-                <span>
-                  <i className="legend-dot supportive"></i>
-                  Supportive
-                </span>
-                <span>
-                  <i className="legend-dot neutral"></i>
-                  Neutral
-                </span>
-                <span>
-                  <i className="legend-dot critical"></i>
-                  Critical
-                </span>
+              <div className="section-head-actions">
+                <button
+                  className="btn btn-primary no-print"
+                  onClick={() => window.print()}
+                >
+                  Udskriv / gem som PDF
+                </button>
+
+                <div className="legend">
+                  <span>
+                    <i className="legend-dot supportive"></i>
+                    Supportive
+                  </span>
+                  <span>
+                    <i className="legend-dot neutral"></i>
+                    Neutral
+                  </span>
+                  <span>
+                    <i className="legend-dot critical"></i>
+                    Critical
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -638,7 +639,7 @@ export default function App() {
             </div>
           </section>
 
-          <section className="card">
+          <section className="card no-print">
             <div className="section-head">
               <h2>Redigér stakeholder</h2>
             </div>
