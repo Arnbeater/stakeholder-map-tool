@@ -73,8 +73,6 @@ h2 {
   letter-spacing: -0.03em;
 }
 
-/* ---------- Shared app layout ---------- */
-
 .app-shell {
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -142,8 +140,6 @@ h2 {
   font-weight: 600;
 }
 
-/* ---------- Inputs ---------- */
-
 input,
 select,
 textarea {
@@ -183,8 +179,6 @@ input[type="range"] {
   accent-color: var(--primary);
 }
 
-/* ---------- Buttons ---------- */
-
 .btn {
   border: 0;
   border-radius: 16px;
@@ -210,8 +204,6 @@ input[type="range"] {
   background: linear-gradient(135deg, #f08aa3 0%, #de6385 100%);
   box-shadow: 0 12px 22px rgba(222, 99, 133, 0.24);
 }
-
-/* ---------- Sidebar ---------- */
 
 .sidebar {
   overflow: auto;
@@ -267,8 +259,6 @@ input[type="range"] {
   border-color: rgba(255, 255, 255, 0.34);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
 }
-
-/* ---------- Stakeholder list ---------- */
 
 .stakeholder-list {
   display: grid;
@@ -329,8 +319,6 @@ input[type="range"] {
   margin-top: 6px;
 }
 
-/* ---------- Legend + dots ---------- */
-
 .dot,
 .legend-dot {
   width: 12px;
@@ -370,15 +358,11 @@ input[type="range"] {
   background: var(--critical);
 }
 
-/* ---------- Main content ---------- */
-
 .main-grid {
   display: grid;
   grid-template-rows: minmax(500px, 1fr) auto;
   gap: 24px;
 }
-
-/* ---------- Map ---------- */
 
 .map-wrapper {
   position: relative;
@@ -514,8 +498,6 @@ input[type="range"] {
   box-shadow: var(--shadow-sm);
 }
 
-/* ---------- Editor ---------- */
-
 .editor-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -544,8 +526,6 @@ input[type="range"] {
 .empty-editor {
   padding: 12px 0 4px;
 }
-
-/* ---------- Project home ---------- */
 
 .project-home-shell {
   min-height: 100vh;
@@ -762,8 +742,6 @@ input[type="range"] {
   min-height: 48px;
 }
 
-/* ---------- Modal ---------- */
-
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -835,7 +813,105 @@ input[type="range"] {
   color: var(--primary);
 }
 
-/* ---------- Responsive ---------- */
+.section-head-print {
+  align-items: flex-start;
+}
+
+.section-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.project-print-description {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 720px;
+}
+
+@media print {
+  html,
+  body,
+  #root {
+    background: white !important;
+  }
+
+  body {
+    overflow: visible;
+  }
+
+  .no-print,
+  .sidebar,
+  .project-home-shell,
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block !important;
+    max-width: none !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  .main-grid {
+    display: block !important;
+  }
+
+  .main-grid > .card:first-child {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .main-grid > .card:last-child {
+    display: none !important;
+  }
+
+  .card {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .card::after,
+  .map::before,
+  .map::after {
+    display: none !important;
+  }
+
+  .map {
+    height: 420px !important;
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .map-label,
+  .node-label,
+  .legend span {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .section-head {
+    margin-bottom: 16px !important;
+  }
+
+  .section-head-actions {
+    justify-content: flex-start !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+}
 
 @media (max-width: 1200px) {
   .app-shell {
